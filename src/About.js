@@ -5,7 +5,7 @@ function About()
     return(
         
 
-        <div className='mt-3 p-3 rounded border shadow text-white' style={{backgroundColor: 'rgba(0,0,0,0.8)'}}>
+        <div className='row mt-3 p-3 rounded border shadow text-white' style={{backgroundColor: 'rgba(0,0,0,0.92)'}}>
 
 <p><h1 className="Display-1 text-white">About</h1>
 <br></br>

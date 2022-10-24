@@ -1,35 +1,82 @@
-import Data from './Data.json';
+// Importing needed webhooks.
+import {useEffect, useState} from 'react';
+import { useHref } from 'react-router-dom';
 
-const subjects = Data.map(
-    (Data) =>
-    {
-        return(
-            <div key={Data.item} className='mt-3 p-3 rounded border shadow text-white' style={{backgroundColor: 'rgba(0,0,0,0.8)'}} >
-                <div className="d-flex flex-column align-items-center">
-                <h1>{Data.item}</h1>
-                <p><img src={Data.image} alt={Data.item} className="rounded shadow" style={{"maxWidth" : "350px", "height" : "auto" }}></img></p>
-                <h2>Oject Class: {Data.objectClass}</h2>
-                <p><h3>Special Containment Procedures: </h3><font size="4">{Data.countainment}</font></p>
-                <p><h3>Description: </h3><font size="4">{Data.description}</font></p>
-                </div>
-
-            </div>
-        );
-    }
-);
 
 function Subjects()
 {
-    return (
-      
+    //Create current state and set or update state variables.
+    //Using empty array as we want to display ALL records in database collection.
+    //This is automatically stored into this empty array.
+    const [state, setState] = useState([]);
 
-        <div>
+    //Function to connect to RestDB database, grab data & update our setState variable.
+    function getData()
+    {
+        //code from restDB to connect to our api
+        var data = null;
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
         
-        {subjects}
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            //console.log(this.responseText);
 
-        </div>
+            //Save data into a variable
+            const subjectData = JSON.parse(this.responseText);
 
-    );
+            //Updating our component state, our variable setState
+            setState(subjectData);
+          }
+        });
+        
+        xhr.open("GET", "https://scpsubjects-23df.restdb.io/rest/scp-subjects");
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.setRequestHeader("x-apikey", "63298edbbf647d0a5c1985a8");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        
+        xhr.send(data);
+
+    }
+
+    //Using the useEffect webhook we can now tell the DOM to display the data
+    //First parameter is a function to grab data, second is to update state variable with data.
+    useEffect(
+                ()=>{
+                    getData();
+                }, [state]
+            );
+
+    return(
+
+            <div>
+                {
+                    state && state.map(
+                        subjects =>
+                        <div className="row mb-5" key = "{subjects.SCP_ID}" >
+                            <div className="col-6" ></div>
+                            
+                                <div className="card-body mt-3 p-3 rounded border shadow text-white" style={{backgroundColor: "rgba(0,0,0,0.92)"}}  >
+
+                                <h1 id={subjects.Item}>{subjects.Item}</h1>
+
+                                <p><img src={subjects.Images} alt= {subjects.Item} className="rounded shadow" style={{"maxWidth" : "350px", "maxHeight" : "450px" }}></img></p>
+                                <h2>Oject Class: {subjects.Class}</h2>
+                                <p><h3>Special Containment Procedures: </h3><font size="4">{subjects.Containment}</font></p>
+                                <p><h3>Description: </h3><font size="4">{subjects.Description}</font></p>
+
+                               <a href="#SCP-066">Back To Top</a>
+                                
+
+                            </div>
+
+                        </div>
+                    )
+                }
+            </div>
+
+          );
 }
 
 export default Subjects;

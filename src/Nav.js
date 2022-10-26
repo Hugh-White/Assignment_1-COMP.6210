@@ -9,13 +9,13 @@ function Nav()
            
                 <ul className="nav nav-pills navbar-right " >
                 <Link to="/" className='nav-link '>
-                    <li className="nav-item text-white p-3"><h3>Home</h3></li>
+                    <li className="nav-item text-white p-3"><h4>Home</h4></li>
                 </Link>
                 <Link to="/About" className='nav-link'>
-                    <li className="nav-item text-white p-3"><h3>About</h3></li>
+                    <li className="nav-item text-white p-3"><h4>About</h4></li>
                 </Link>
                 <Link to='/Subjects' className='nav-link'>
-                    <li className="nav-item text-white p-3"><h3>Subjects</h3></li>
+                    <li className="nav-item text-white p-3"><h4>Subjects</h4></li>
                 </Link>
                     
                 </ul>

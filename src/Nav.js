@@ -7,7 +7,7 @@ function Nav()
         <nav className="navbar p-3 rounded border " style={{backgroundColor: "rgba(0,0,0,0.92)"}}>
             <h3 className="Display-3 navbar-brand text-white"><img src="images/SCPlogo.png" alt="Logo" style={{"max-width" : "45px", "height" : "auto" }}></img> SCP Foundation</h3>
            
-                <ul className="nav nav-pills navbar-right " >
+                <ul className="nav nav-pills navbar-left " >
                 <Link to="/" className='nav-link '>
                     <li className="nav-item text-white p-3"><h3>Home</h3></li>
                 </Link>
